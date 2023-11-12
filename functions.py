@@ -12,6 +12,7 @@ def suma (n1,n2):
     return n1 + n2
 
 print(suma(10,30)) #Aqui le pasamos los valores de las variables
+
 print("\n")
 #------------------------------------------------------------------------------
 #----------------Args-------------------
@@ -47,6 +48,67 @@ combinacion("valor requerido", 10, 20, valor1=True, valor2=False)
 
 print("\n")
 #------------------------------------------------------------------------------
+#----------------Decoradores-------------------
+#------------------------------------------------------------------------------
+#Los decoradores es como agregarle funciones extras a tu funcion principal
+
+#Ejemplo 1
+#Esta funcion es el decorador (es cun ejemplo)
+def decorador(funcion):#El nombre del decorador debe ser normalmente muy descriptivo
+    def nueva_funcion(*args,**kwargs):
+        print("Podemos agregar codigo antes")
+        resultado = funcion(*args,**kwargs) #Esta funcion es la que se va a decorar
+        print("Podemos agregar codigo despues")
+        return resultado
+    return nueva_funcion
+
+#Funcion 1
+@decorador #Llamamos al decorador encima de la funcion principal
+def funcion_a_decorar():
+    print("Este es una funcion a decorar")
+
+#Funcion 2
+@decorador
+def suma(val1,val2):
+    return val1 + val2
+
+funcion_a_decorar()
+
+resultado = suma(10,20)
+print(resultado)
+
+
+#Ejemplo 2 haciendo que podamos agregarle valores extra al decorador
+
+#Simplemente debemos agregar una funcion mas y bajar de nivel las otras
+def decorador(name, number): #Podemos pedirle el numero de parametros que querramos
+    def nueva_funcion(funcion): #Bajamos el paramentro funcion y podemos agregarle a la funcion 1 los parametros que querramos
+        def nueva_funcion2(*args,**kwargs): #Bajamos tambien los args y los kwargs a la funcion de abajo
+            print("Podemos agregar codigo antes")
+            resultado = funcion(*args,**kwargs) #Esta funcion es la que se va a decorar
+            print("Podemos agregar codigo despues")
+            return resultado
+        return nueva_funcion2
+    return nueva_funcion
+
+#Funcion 1
+@decorador('Juan', 23) #Les agregamos los valores directamente aqui
+def funcion_a_decorar():
+    print("Este es una funcion a decorar")
+
+#Funcion 2
+@decorador('Jose', 21412)
+def suma(val1,val2):
+    return val1 + val2
+
+funcion_a_decorar()
+
+resultado = suma(10,20)
+print(resultado)
+
+
+print("\n")
+#------------------------------------------------------------------------------
 #----------------Closures-------------------
 #------------------------------------------------------------------------------
 #Basicamente son funciones dentro de otras funciones usando las variables de la funcion inicial
@@ -61,34 +123,6 @@ nueva_funcion = mostrar_mensaje("codigo facilito")
 nueva_funcion()
 
 print("\n")
-#------------------------------------------------------------------------------
-#----------------Decoradores-------------------
-#------------------------------------------------------------------------------
-def decorador(funcion):
-    def nueva_funcion(*args,**kwargs):
-        print("Podemos agregar codigo antes")
-        resultado = funcion(*args,**kwargs)
-        print("Podemos agregar codigo despues")
-        return resultado
-    return nueva_funcion
-
-#Funcion 1
-@decorador
-def funcion_a_decorar():
-    print("Este es una funcion a decorar")
-
-#Funcion 2
-
-@decorador
-def suma(val1,val2):
-    return val1 + val2
-
-funcion_a_decorar()
-
-resultado = suma(10,20)
-print(resultado)
-
-
 #------------------------------------------------------------------------------
 #----------------Funciones Anidadas-------------------
 #------------------------------------------------------------------------------
