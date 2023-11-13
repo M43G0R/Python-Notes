@@ -111,7 +111,7 @@ print("\n")
 #------------------------------------------------------------------------------
 #----------------Closures-------------------
 #------------------------------------------------------------------------------
-#Basicamente son funciones dentro de otras funciones usando las variables de la funcion inicial
+#Basicamente son funciones dentro de otras funciones usando las variables de la funcion inicial, es como las funciones anidadas pero aqui se tiene que retornar
 def mostrar_mensaje(mensaje):
     mensaje = mensaje.title() #.title() te pone la oracion con la primera letra en mayus
 
@@ -126,6 +126,7 @@ print("\n")
 #------------------------------------------------------------------------------
 #----------------Funciones Anidadas-------------------
 #------------------------------------------------------------------------------
+#Son parecidas a los closures pero aqui no se suele retornar al termino de la funcion
 def comenzar_playlist(lista):
     def reproducir():
         #nonlocal lista       #para poder cambiar la lista dentro de la funcion, debemos usar el nonlocal
@@ -137,3 +138,48 @@ def comenzar_playlist(lista):
 
 lista = ["track 1", "track 2", "track 3", "track 4"]
 comenzar_playlist(lista)
+
+print("\n")
+#------------------------------------------------------------------------------
+#----------------Generadores-------------------
+#------------------------------------------------------------------------------
+def tabla_multiplicar(numero,maximo=10):
+    for posicion in range(1, maximo+1):
+        yield numero * posicion, numero, posicion 
+    """yield se usa para retornar el valor pero la funcion no termina la funcion, sino que la itera"""
+
+
+for resultado,numero ,posicion in tabla_multiplicar(9):
+    print(numero, 'x', posicion, '=', resultado)
+
+
+print("\n")
+#------------------------------------------------------------------------------
+#----------------Funciones Lambdas-------------------
+#------------------------------------------------------------------------------
+#Lambda es una funcion que se hace en una sola linea
+#Esta es solamente para funciones cortas
+#Ejemplo
+mi_funcion = lambda grados=0 : grados * 1.8 + 32
+
+resultado = mi_funcion(32)
+print(resultado)
+
+
+print("\n")
+#------------------------------------------------------------------------------
+#----------------Parametros_argumentos-------------------
+#------------------------------------------------------------------------------
+def crear_usuario(nombre='', apellido='', edad=10):
+    return {
+        'nombre' : nombre,
+        'apellido' : apellido,
+        'nombre_completo' : "{} {}".format(nombre, apellido),
+        'edad' : edad
+    }
+
+codi = crear_usuario(edad=11, apellido='Facilito',nombre='Codi')
+
+print(codi["nombre"])
+print(codi["apellido"])
+print(codi["edad"])
